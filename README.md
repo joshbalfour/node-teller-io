@@ -1,4 +1,4 @@
-# node-teller-io
+# teller-io
 
 API wrapper lib for [Teller](https://teller.io)
 
