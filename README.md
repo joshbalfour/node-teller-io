@@ -1,8 +1,14 @@
-# node-teller-io
+# teller-io
 
-Wrapper for (Teller)[https://teller.io]
+API wrapper lib for [Teller](https://teller.io)
+
+## Installation
+
+`npm install teller-io --save`
 
 ## Usage
+
+`const teller = require('teller-io')`
 
 ### Generate Auth URL
 
@@ -21,7 +27,7 @@ const permissions = {
 	external_payments: true,
 }
 
-generateAuthUrl({ appId, permissions })
+teller.generateAuthUrl({ appId, permissions })
 ```
 
 Returns: String
@@ -32,7 +38,7 @@ Usage:
 ```
 const url = 'https://splitthis.app/?token=000-000-000&permissions=balance:true,direct_debits:read,external_payments:true,full_account_number:true,payees:write,standing_orders:read,transaction_history:true'
 
-parseRedirectUrl(url)
+teller.parseRedirectUrl(url)
 ```
 Returns: 
 ```
@@ -53,28 +59,31 @@ Returns:
 
 ### Make Requests
 
-`getAccounts({ token })`
+Below all return a Promise which resolves to the result of the request, or rejects with an error.
 
-`getAccount({ token, accountId })`
+`teller.getAccounts({ token })`
 
-
-`getTransactions({ accountId, token })`
-
-`getTransaction ({ accountId, transactionId, token })`
+`teller.getAccount({ token, accountId })`
 
 
-`getDirectDebits({ accountId, token })`
+`teller.getTransactions({ accountId, token })`
 
-`getDirectDebit({ accountId, directDebitId, token })`
-
-
-`getStandingOrders({ accountId, token })`
-
-`getStandingOrder({ accountId, standingOrderId, token })`
+`teller.getTransaction ({ accountId, transactionId, token })`
 
 
-`getPayees({ accountId, token })`
+`teller.getDirectDebits({ accountId, token })`
 
-`getPayee({ accountId, payeeId, token })`
+`teller.getDirectDebit({ accountId, directDebitId, token })`
 
-`externalPayment({ accountId, payeeId, bankCode, accountNumber, amount, token, key })`
+
+`teller.getStandingOrders({ accountId, token })`
+
+`teller.getStandingOrder({ accountId, standingOrderId, token })`
+
+
+`teller.getPayees({ accountId, token })`
+
+`teller.getPayee({ accountId, payeeId, token })`
+
+(wip)
+`teller.externalPayment({ accountId, payeeId, bankCode, accountNumber, amount, token, key })`
