@@ -1,6 +1,6 @@
 # node-teller-io
 
-Wrapper for (Teller)[https://teller.io]
+Wrapper for [Teller](https://teller.io)
 
 ## Usage
 
@@ -52,6 +52,8 @@ Returns:
 ```
 
 ### Make Requests
+
+Below all return a Promise which resolves to the result of the request, or rejects with an error.
 
 `getAccounts({ token })`
 
