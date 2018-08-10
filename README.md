@@ -4,6 +4,10 @@ API wrapper lib for [Teller](https://teller.io)
 
 ## Usage
 
+`npm install teller-io --save`
+
+`const teller = require('teller-io')`
+
 ### Generate Auth URL
 
 Usage:
