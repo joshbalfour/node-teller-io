@@ -1,4 +1,4 @@
-# teller-io
+# teller-io [![npm version](https://badge.fury.io/js/teller-io.svg)](https://badge.fury.io/js/teller-io)
 
 API wrapper lib for [Teller](https://teller.io)
 
