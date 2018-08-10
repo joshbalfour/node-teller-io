@@ -1,6 +1,6 @@
 # node-teller-io
 
-Wrapper for [Teller](https://teller.io)
+API wrapper lib for [Teller](https://teller.io)
 
 ## Usage
 
