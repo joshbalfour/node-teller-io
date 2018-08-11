@@ -2,7 +2,7 @@
 
 API wrapper lib for [Teller](https://teller.io)
 
-**note**: TAuth implementation is a WIP, this currently only works with a dev's personal access token
+**note**: TAuth implementation is a WIP, this currently only works with a dev's personal access token, key, cert
 
 ## Installation
 
@@ -38,14 +38,14 @@ Returns: String
 
 Usage:
 ```
-const url = 'https://splitthis.app/?token=000-000-000&permissions=balance:true,direct_debits:read,external_payments:true,full_account_number:true,payees:write,standing_orders:read,transaction_history:true'
+const url = 'https://splitthis.app/?token, key, cert=000-000-000&permissions=balance:true,direct_debits:read,external_payments:true,full_account_number:true,payees:write,standing_orders:read,transaction_history:true'
 
 teller.parseRedirectUrl(url)
 ```
 Returns: 
 ```
 {
-	token: String,
+	token, key, cert: String,
 	permissions: {
 		full_account_number: true,
 		balance: true,
@@ -62,30 +62,34 @@ Returns:
 ### Make Requests
 
 Below all return a Promise which resolves to the result of the request, or rejects with an error.
+You can pass in your developer personal access token, **or** a access token, private key, and cert.
 
-`teller.getAccounts({ token })`
+`teller.getAccounts({ token, key, cert })`
 
-`teller.getAccount({ token, accountId })`
-
-
-`teller.getTransactions({ accountId, token })`
-
-`teller.getTransaction ({ accountId, transactionId, token })`
+`teller.getAccount({ token, key, cert, accountId })`
 
 
-`teller.getDirectDebits({ accountId, token })`
+`teller.getTransactions({ accountId, token, key, cert })`
 
-`teller.getDirectDebit({ accountId, directDebitId, token })`
-
-
-`teller.getStandingOrders({ accountId, token })`
-
-`teller.getStandingOrder({ accountId, standingOrderId, token })`
+`teller.getTransaction ({ accountId, transactionId, token, key, cert })`
 
 
-`teller.getPayees({ accountId, token })`
+`teller.getDirectDebits({ accountId, token, key, cert })`
 
-`teller.getPayee({ accountId, payeeId, token })`
+`teller.getDirectDebit({ accountId, directDebitId, token, key, cert })`
+
+
+`teller.getStandingOrders({ accountId, token, key, cert })`
+
+`teller.getStandingOrder({ accountId, standingOrderId, token, key, cert })`
+
+
+`teller.getPayees({ accountId, token, key, cert })`
+
+`teller.getPayee({ accountId, payeeId, token, key, cert })`
 
 (wip)
-`teller.externalPayment({ accountId, payeeId, bankCode, accountNumber, amount, token, key })`
+`teller.externalPayment({ accountId, payeeId, bankCode, accountNumber, amount, token, key, cert })`
+
+## License
+[ISC](LICENSE)
