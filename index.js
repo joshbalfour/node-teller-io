@@ -2,16 +2,20 @@ const makeJSONRequest = require('./makeJSONRequest')
 const querystring = require('querystring')
 
 const entrypoint = 'api.teller.io'
-const keyId = 'certificate'
 
 const permissionsToQuery = perms => Object.keys(perms).map(key => `${key}:${perms[key]}`).join(',')
 
 const generateAuthUrl = ({ appId, permissions }) => `https://teller.io/auth/authorize?application_id=${appId}&permissions=${permissionsToQuery(permissions)}`
 
-const makeTellerRequest = ({ path, method, token, form, key }) => {
+const makeTellerRequest = ({ path, method = 'get', token, form, key, cert }) => {
 	let body
+	let contentType
+	let keyId
+
 	if (form) {
-		body = JSON.stringify(form)
+		body = querystring.stringify(form)
+		contentType = 'x-www-form-urlencoded'
+		keyId = 'certificate'
 	}
 
 	const options = {
@@ -23,11 +27,15 @@ const makeTellerRequest = ({ path, method, token, form, key }) => {
 		headers: {
 			accept: 'application/json',
 			authorization: `Bearer ${token}`,
-			'content-type': 'application/json',
+			'user-agent': 'node-teller-io/0.0.4',
 		}
 	}
 
-	return makeJSONRequest(options, { key, keyId })
+	if (contentType) {
+		options.headers['content-type'] = contentType
+	}
+
+	return makeJSONRequest(options, { key, cert, keyId })
 }
 
 const parseRedirectUrl = uri => {
@@ -55,67 +63,58 @@ const parseRedirectUrl = uri => {
 	}
 }
 
-const getAccounts = ({ token }) => makeTellerRequest({
+const getAccounts = ({ token, key, cert }) => makeTellerRequest({
+	key, cert, token,
 	path: '/accounts',
-	method: 'get',
 	token,
 })
-const getAccount = ({ token, accountId }) => makeTellerRequest({
+const getAccount = ({ token, accountId, key, cert }) => makeTellerRequest({
+	key, cert, token,
 	path: `/accounts/${accountId}`,
-	method: 'get',
-	token,
 })
 
 
-const getTransactions = ({ accountId, token }) => makeTellerRequest({
+const getTransactions = ({ accountId, token, key, cert }) => makeTellerRequest({
+	key, cert, token,
 	path: `/accounts/${accountId}/transactions`,
-	method: 'get',
-	token,
 })
-const getTransaction = ({ accountId, transactionId, token }) => makeTellerRequest({
+const getTransaction = ({ accountId, transactionId, token, key, cert }) => makeTellerRequest({
+	key, cert, token,
 	path: `/accounts/${accountId}/transactions`,
-	method: 'get',
-	token,
 })
 
-const getDirectDebits = ({ accountId, token }) => makeTellerRequest({
+const getDirectDebits = ({ accountId, token, key, cert }) => makeTellerRequest({
+	key, cert, token,
 	path: `/accounts/${accountId}/direct_debits`,
-	method: 'get',
-	token,
 })
-const getDirectDebit = ({ accountId, directDebitId, token }) => makeTellerRequest({
+const getDirectDebit = ({ accountId, directDebitId, token, key, cert }) => makeTellerRequest({
+	key, cert, token,
 	path: `/accounts/${accountId}/direct_debits/${directDebitId}`,
-	method: 'get',
-	token,
 })
 
-const getStandingOrders = ({ accountId, token }) => makeTellerRequest({
+const getStandingOrders = ({ accountId, token, key, cert }) => makeTellerRequest({
+	key, cert, token,
 	path: `/accounts/${accountId}/standing_orders`,
-	method: 'get',
-	token,
 })
-const getStandingOrder = ({ accountId, standingOrderId, token }) => makeTellerRequest({
+const getStandingOrder = ({ accountId, standingOrderId, token, key, cert }) => makeTellerRequest({
+	key, cert, token,
 	path: `/accounts/${accountId}/standing_orders/${standingOrderId}`,
-	method: 'get',
-	token,
 })
 
-const getPayees = ({ accountId, token }) => makeTellerRequest({
+const getPayees = ({ accountId, token, key, cert }) => makeTellerRequest({
+	key, cert, token,
 	path: `/accounts/${accountId}/payees`,
-	method: 'get',
-	token,
 })
-const getPayee = ({ accountId, payeeId, token }) => makeTellerRequest({
+const getPayee = ({ accountId, payeeId, token, key, cert }) => makeTellerRequest({
+	key, cert, token,
 	path: `/accounts/${accountId}/payees/${payeeId}`,
-	method: 'get',
-	token,
 })
 
-const externalPayment = ({ accountId, payeeId, bankCode, accountNumber, amount, token, key }) => makeTellerRequest({
+// causes 500 - not sure why
+const externalPayment = ({ accountId, payeeId, bankCode, accountNumber, amount, token, key, cert }) => makeTellerRequest({
+	token, key, cert,
 	path: `/accounts/${accountId}/payees/${payeeId}`,
 	method: 'put',
-	token,
-	key,
 	form: {
 		bank_code: bankCode,
 		account_number: accountNumber,

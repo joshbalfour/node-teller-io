@@ -1,7 +1,7 @@
 const https = require('https')
-const httpSignature = require('http-signature')
+const tauth = require('./tauth')
 
-const makeJSONRequest = (options, { key, keyId }) => {
+const makeJSONRequest = (options, { key, cert, keyId }) => {
 	return new Promise((resolve, reject) => {
 		const handler = (response) => {
 			const body = []
@@ -11,7 +11,11 @@ const makeJSONRequest = (options, { key, keyId }) => {
 				try {
 					const data = JSON.parse(str)
 					if (response.statusCode > 302) {
-						reject(data)
+						const error = {
+							data,
+							statusCode: response.statusCode,
+						}
+						reject(error)
 					} else {
 						resolve(data)
 					}
@@ -23,18 +27,21 @@ const makeJSONRequest = (options, { key, keyId }) => {
 			})
 		}
 
-		const request = https.request(options, handler)
-
 		if (key) {
-			httpSignature.sign(request, {
-				key,
-				keyId,
-			})
+			options.key = key
+			options.cert = cert
 		}
+
+		if (keyId) {
+			options.keyId = keyId
+			options.headers = tauth(options)
+		}
+
+		const request = https.request(options, handler)
 
 		request.on('error', (err) => reject(err))
 
-		request.end(options.body)
+		request.end(options.body || '')
 	})
 }
 
