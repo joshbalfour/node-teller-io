@@ -38,14 +38,14 @@ Returns: String
 
 Usage:
 ```
-const url = 'https://splitthis.app/?token, key, cert=000-000-000&permissions=balance:true,direct_debits:read,external_payments:true,full_account_number:true,payees:write,standing_orders:read,transaction_history:true'
+const url = 'https://splitthis.app/?token=XXXXXXXXXXXXX&permissions=balance:true,direct_debits:read,external_payments:true,full_account_number:true,payees:write,standing_orders:read,transaction_history:true'
 
 teller.parseRedirectUrl(url)
 ```
 Returns: 
 ```
 {
-	token, key, cert: String,
+	token: 'XXXXXXXXXXXXX',
 	permissions: {
 		full_account_number: true,
 		balance: true,
