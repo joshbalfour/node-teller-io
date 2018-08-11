@@ -2,6 +2,8 @@
 
 API wrapper lib for [Teller](https://teller.io)
 
+**note**: TAuth implementation is a WIP, this currently only works with a dev's personal access token
+
 ## Installation
 
 `npm install teller-io --save`
