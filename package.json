@@ -1,6 +1,6 @@
 {
   "name": "teller-io",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "api wrapper for teller.io",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,5 @@
     "url": "https://github.com/joshbalfour/node-teller-io/issues"
   },
   "homepage": "https://github.com/joshbalfour/node-teller-io#readme",
-  "dependencies": {
-    "http-signature": "^1.2.0"
-  }
+  "dependencies": {}
 }

@@ -16,7 +16,7 @@ const sha256Hash = (str) => {
 	return digest
 }
 
-const generateSignature = ({ method, path, headers, body = '', key, keyId, forceDateStr }) => {
+const generateSignature = ({ method, path, headers, body = '', key, keyId }) => {
 	const { authorization, accept } = headers
 	const date = (new Date()).toUTCString()
 

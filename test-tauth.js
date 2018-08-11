@@ -1,3 +1,6 @@
+/*
+	verifys implementation against documentation
+*/
 const tauth = require('./tauth')
 
 const key = `-----BEGIN RSA PRIVATE KEY-----
