@@ -2,7 +2,7 @@
 
 API wrapper lib for [Teller](https://teller.io)
 
-**note**: TAuth implementation is a WIP, this currently only works with a dev's personal access token, key, cert
+**note**: TAuth implementation is a WIP, external payments do not currently work, help on this would be appreciated!
 
 ## Installation
 
