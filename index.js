@@ -80,7 +80,7 @@ const getTransactions = ({ accountId, token, key, cert }) => makeTellerRequest({
 })
 const getTransaction = ({ accountId, transactionId, token, key, cert }) => makeTellerRequest({
 	key, cert, token,
-	path: `/accounts/${accountId}/transactions`,
+	path: `/accounts/${accountId}/transactions/${transactionId}`,
 })
 
 const getDirectDebits = ({ accountId, token, key, cert }) => makeTellerRequest({
