@@ -1,6 +1,6 @@
 {
   "name": "teller-io",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "api wrapper for teller.io",
   "main": "index.js",
   "scripts": {
